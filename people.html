@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>People | Ramanujan House Portal</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800;14..32,900&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            /* Refined Teal & Dark Green Palette mapped from index_2.html */
+            --bg-canvas: #F2F6F5;            
+            --bg-surface: #FFFFFF;
+            --bg-tinted: #E6EEEC;            
+            --ink-primary: #0A1412;          
+            --ink-secondary: #3A4D4A;        
+            --ink-muted: #788C89;            
+            
+            --accent: #004D40;               
+            --accent-soft: #00796B;          
+            --accent-bright: #009688;        
+            --accent-glow: #E0F2F1;          
+            
+            --hairline: rgba(0, 77, 64, 0.08);
+            --hairline-strong: rgba(0, 77, 64, 0.16);
+
+            --shadow-1: 0 1px 2px rgba(10,20,18,0.03), 0 4px 8px rgba(10,20,18,0.03);
+            --shadow-2: 0 2px 4px rgba(10,20,18,0.03), 0 12px 24px -8px rgba(10,20,18,0.08), 0 24px 48px -16px rgba(10,20,18,0.06);
+            --shadow-3: 0 4px 8px rgba(10,20,18,0.04), 0 24px 48px -12px rgba(10,20,18,0.14), 0 48px 96px -24px rgba(10,20,18,0.10);
+            --shadow-float: 0 30px 60px -20px rgba(10,20,18,0.22), 0 60px 120px -40px rgba(10,20,18,0.18);
+
+            --ease-butter: cubic-bezier(0.16, 1, 0.3, 1);
+            --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        html, body { background: var(--bg-canvas); }
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            color: var(--ink-primary);
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+            font-feature-settings: "ss01", "cv11";
+            -webkit-font-smoothing: antialiased;
+            position: relative;
+        }
+
+        /* Subtle dot grid background with green-teal tincture */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image: radial-gradient(circle at 1px 1px, rgba(0,77,64,0.05) 1px, transparent 0);
+            background-size: 28px 28px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* ============ NAVIGATION — floating glass pill ============ */
+        .nav-master {
+            position: fixed;
+            top: 18px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: calc(100% - 36px);
+            max-width: 1320px;
+            z-index: 2000;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(28px) saturate(190%);
+            -webkit-backdrop-filter: blur(28px) saturate(190%);
+            border-radius: 22px;
+            border: 1px solid rgba(255,255,255,0.8);
+            box-shadow: var(--shadow-2);
+            padding: 12px 14px 12px 22px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.5s var(--ease-butter);
+        }
+        .nav-master.scrolled {
+            background: rgba(255, 255, 255, 0.94);
+            box-shadow: var(--shadow-3);
+            padding: 8px 12px 8px 18px;
+        }
+
+        .logo-brand-container { display: flex; align-items: center; gap: 12px; }
+        .tifr-logo {
+            width: 36px; height: 36px;
+            object-fit: contain;
+            filter: drop-shadow(0 2px 4px rgba(0,77,64,0.12));
+        }
+        .logo-brand {
+            font-weight: 800;
+            font-size: 1rem;
+            letter-spacing: -0.02em;
+            color: var(--ink-primary);
+            white-space: nowrap;
+            text-transform: uppercase;
+        }
+        .logo-brand .sep { color: var(--ink-muted); margin: 0 6px; font-weight: 400; }
+
+        .nav-links { display: flex; gap: 4px; align-items: center; }
+        .nav-links a {
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.85rem;
+            color: var(--ink-secondary);
+            transition: all 0.25s var(--ease-butter);
+            padding: 8px 14px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            position: relative;
+        }
+        .nav-links a i { font-size: 0.72rem; opacity: 0.65; transition: opacity 0.25s, color 0.25s; color: var(--accent-soft); }
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--accent);
+            background: rgba(0, 150, 136, 0.06);
+        }
+        .nav-links a:hover i, .nav-links a.active i { opacity: 1; color: var(--accent-bright); }
+
+        .mobile-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            color: var(--ink-primary);
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 10px;
+            transition: background 0.25s;
+        }
+        .mobile-toggle:hover { background: rgba(0, 77, 64, 0.05); }
+
+        /* ============ HERO HEADLINE STRIP ============ */
+        .people-hero {
+            margin: 140px auto 0;
+            max-width: 1320px;
+            width: calc(100% - 36px);
+            text-align: center;
+            padding: 40px 20px;
+        }
+        .people-hero h1 {
+            font-family: 'Instrument Serif', serif;
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 400;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+            color: var(--ink-primary);
+            margin-bottom: 16px;
+        }
+        .people-hero h1 em {
+            font-style: italic;
+            color: var(--accent-soft);
+        }
+        .people-hero p {
+            font-size: 1.05rem;
+            color: var(--ink-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        /* ============ SECTION SCAFFOLD ============ */
+        .section-wrap {
+            position: relative;
+            z-index: 1;
+            max-width: 1320px;
+            margin: 0 auto;
+            padding: 30px 18px 50px;
+        }
+        .section-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--accent);
+            background: var(--accent-glow);
+            padding: 6px 14px;
+            border-radius: 100px;
+            margin-bottom: 24px;
+            border: 1px solid rgba(0, 150, 136, 0.15);
+        }
+
+        /* ============ PEOPLE GRID SYSTEMS ============ */
+        .people-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        .people-grid.management {
+            grid-template-columns: repeat(1, 1fr);
+            max-width: 480px;
+            margin: 0 auto 40px;
+        }
+
+        .person-card {
+            background: var(--bg-surface);
+            border-radius: 20px;
+            border: 1px solid var(--hairline);
+            box-shadow: var(--shadow-2);
+            padding: 28px 24px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.5s var(--ease-butter);
+            transform-style: preserve-3d;
+            will-change: transform;
+        }
+        .person-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 4px;
+            background: linear-gradient(90deg, var(--accent-soft), var(--accent-bright));
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+        .person-card:hover {
+            box-shadow: var(--shadow-3);
+            transform: translateY(-3px);
+        }
+        .person-card:hover::before { opacity: 1; }
+
+        .avatar-wrap {
+            width: 72px; height: 72px;
+            border-radius: 50%;
+            background: var(--bg-tinted);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 16px;
+            border: 1px solid var(--hairline-strong);
+            color: var(--accent-soft);
+            font-size: 1.6rem;
+        }
+
+        .person-card h3 {
+            font-family: 'Instrument Serif', serif;
+            font-size: 1.6rem;
+            font-weight: 400;
+            color: var(--ink-primary);
+            letter-spacing: -0.01em;
+            margin-bottom: 2px;
+        }
+        .person-role {
+            font-size: 0.78rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--accent-bright);
+            margin-bottom: 16px;
+        }
+
+        /* Mini info block for contact data */
+        .person-meta {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-top: auto;
+            padding-top: 16px;
+            border-top: 1px dashed var(--hairline-strong);
+        }
+        .meta-line {
+            font-size: 0.82rem;
+            color: var(--ink-secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        .meta-line i { color: var(--accent-soft); font-size: 0.78rem; }
+        .meta-line a { color: inherit; text-decoration: none; font-weight: 500; }
+        .meta-line a:hover { color: var(--accent-bright); }
+
+        /* ============ ANCHOR TAB PANEL ============ */
+        .glass-info-slab {
+            background: var(--bg-surface);
+            border-radius: 24px;
+            padding: 36px;
+            border: 1px solid var(--hairline);
+            box-shadow: var(--shadow-2);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 40px;
+            margin-top: 20px;
+        }
+        .glass-info-slab::before {
+            content: '';
+            position: absolute; left: 0; top: 0; bottom: 0; width: 4px;
+            background: var(--accent); border-radius: 24px 0 0 24px;
+        }
+        .slab-text h3 { font-family: 'Instrument Serif', serif; font-size: 2rem; font-weight: 400; margin-bottom: 6px; }
+        .slab-text p { color: var(--ink-secondary); font-size: 0.92rem; }
+        .slab-action .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 24px;
+            background: var(--ink-primary);
+            color: #fff;
+            border-radius: 100px;
+            font-weight: 600;
+            font-size: 0.88rem;
+            text-decoration: none;
+            transition: all 0.4s var(--ease-butter);
+        }
+        .slab-action .btn-secondary:hover { background: var(--accent-soft); transform: translateY(-2px); }
+
+        /* ============ FOOTER ============ */
+        .footer-ultimate {
+            position: relative;
+            z-index: 1;
+            margin: 80px auto 0;
+            max-width: 1320px;
+            width: calc(100% - 36px);
+            background: var(--ink-primary);
+            border-radius: 28px 28px 0 0;
+            padding: 56px 48px 24px;
+            color: #A3B8B5;
+            box-shadow: var(--shadow-float);
+        }
+        .footer-flex { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 36px; }
+        .footer-brand-side { flex: 1; min-width: 320px; }
+        .footer-brand-side h2 { color: #fff; font-family: 'Instrument Serif', serif; font-size: 2rem; font-weight: 400; display: flex; align-items: center; gap: 14px; margin-bottom: 12px; }
+        .footer-info-side { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; flex: 1; min-width: 280px; }
+        .contact-pill { background: rgba(255,255,255,0.03); border: 1px solid rgba(0,150,136,0.12); border-radius: 14px; padding: 14px 18px; display: flex; align-items: center; gap: 12px; font-size: 0.84rem; color: #C0D1CE; }
+        .contact-pill i { color: #80CBC4; width: 32px; height: 32px; border-radius: 8px; background: rgba(0, 150, 136, 0.15); display: flex; align-items: center; justify-content: center; }
+        .footer-bottom { text-align: center; margin-top: 40px; padding-top: 20px; border-top: 1px solid rgba(0,150,136,0.1); font-size: 0.76rem; color: rgba(255,255,255,0.3); }
+
+        /* ============ RESPONSIVE ============ */
+        @media (max-width: 1200px) {
+            .people-grid { grid-template-columns: repeat(3, 1fr); }
+        }
+        @media (max-width: 900px) {
+            .people-grid { grid-template-columns: repeat(2, 1fr); }
+            .glass-info-slab { flex-direction: column; align-items: flex-start; gap: 20px; }
+            .nav-master { padding: 10px 12px 10px 18px; top: 12px; width: calc(100% - 24px); }
+            .mobile-toggle { display: block; }
+            .nav-links {
+                position: fixed; top: 70px; left: 12px; right: 12px;
+                background: rgba(255,255,255,0.97); backdrop-filter: blur(28px);
+                box-shadow: var(--shadow-3); flex-direction: column; padding: 14px; gap: 4px;
+                border-radius: 18px; border: 1px solid var(--hairline);
+                transform: translateY(-150%); opacity: 0;
+                transition: transform 0.4s var(--ease-butter), opacity 0.3s ease;
+                pointer-events: none; z-index: 1999; align-items: stretch;
+            }
+            .nav-links.mobile-active { transform: translateY(0); opacity: 1; pointer-events: auto; }
+        }
+        @media (max-width: 580px) {
+            .people-grid { grid-template-columns: 1fr !important; }
+        }
+    </style>
+</head>
+<body>
+
+<nav class="nav-master">
+    <div class="logo-brand-container">
+        <img src="tifr.png" alt="TIFR Official Seal Logo" class="tifr-logo">
+        <div class="logo-brand">Ramanujan House <span class="sep">/</span> TIFR</div>
+    </div>
+    <button class="mobile-toggle" aria-label="Toggle Navigation Menu"><i class="fa-solid fa-bars"></i></button>
+    <div class="nav-links">
+        <a href="#"><i class="fa-solid fa-house-chimney"></i> TIFR Home</a>
+        <a href="index.html"><i class="fa-solid fa-monument"></i> About</a>
+        <a href="people.html" class="active"><i class="fa-solid fa-users-viewfinder"></i> People</a>
+        <a href="catering.html"><i class="fa-solid fa-utensils"></i> Catering</a>
+        <a href="usage_rules.html"><i class="fa-solid fa-gavel"></i> Usage Rules</a>
+        <a href="contact.html"><i class="fa-solid fa-address-book"></i> Contact</a>
+    </div>
+</nav>
+
+<div class="people-hero">
+    <h1>Institute <em>Guesthouse Directory</em></h1>
+    <p>Operational personnel directory for verification, check-in support, and comprehensive structural property management workflows.</p>
+</div>
+
+<!-- SECTION 1: MANAGEMENT -->
+<section class="section-wrap">
+    <div class="section-badge"><i class="fa-solid fa-user-shield"></i> Administration</div>
+    
+    <div class="people-grid management">
+        <div class="person-card tilt-card">
+            <div class="avatar-wrap"><i class="fa-solid fa-user-tie"></i></div>
+            <h3>Mohan M. Kakade</h3>
+            <div class="person-role">Housekeeping Incharge</div>
+            <div class="person-meta">
+                <div class="meta-line"><i class="fa-solid fa-phone"></i> <a href="tel:+912222783065">+91-22-22783065</a></div>
+                <div class="meta-line"><i class="fa-solid fa-envelope"></i> <a href="mailto:ghincharge@tifr.res.in">ghincharge@tifr.res.in</a></div>
+                <div class="meta-line"><i class="fa-solid fa-envelope"></i> <a href="mailto:housekeeping@tifr.res.in">housekeeping@tifr.res.in</a></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SECTION 2: FRONT DESK -->
+<section class="section-wrap" style="padding-top: 0;">
+    <div class="section-badge"><i class="fa-solid fa-headset"></i> Front Desk Operations</div>
+    
+    <div class="people-grid">
+        <div class="person-card tilt-card">
+            <div class="avatar-wrap"><i class="fa-solid fa-user-clock"></i></div>
+            <h3>Mohan M. Vartak</h3>
+            <div class="person-role">Front Desk Officer</div>
+            <div class="person-meta">
+                <div class="meta-line"><i class="fa-solid fa-phone-flip"></i> Ext: 22783050</div>
+            </div>
+        </div>
+
+        <div class="person-card tilt-card">
+            <div class="avatar-wrap"><i class="fa-solid fa-user-clock"></i></div>
+            <h3>Sanjay V. Patil</h3>
+            <div class="person-role">Front Desk Officer</div>
+            <div class="person-meta">
+                <div class="meta-line"><i class="fa-solid fa-phone-flip"></i> Ext: 22783050</div>
+            </div>
+        </div>
+
+        <div class="person-card tilt-card">
+            <div class="avatar-wrap"><i class="fa-solid fa-user-clock"></i></div>
+            <h3>Sumit S. Nitnaware</h3>
+            <div class="person-role">Front Desk Officer</div>
+            <div class="person-meta">
+                <div class="meta-line"><i class="fa-solid fa-phone-flip"></i> Ext: 22783050</div>
+            </div>
+        </div>
+
+        <div class="person-card tilt-card">
+            <div class="avatar-wrap"><i class="fa-solid fa-user-clock"></i></div>
+            <h3>Bhakti V. Khetle</h3>
+            <div class="person-role">Front Desk Officer</div>
+            <div class="person-meta">
+                <div class="meta-line"><i class="fa-solid fa-phone-flip"></i> Ext: 22783050</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SECTION 3: CARETAKERS -->
+<section class="section-wrap" style="padding-top: 0;">
+    <div class="section-badge"><i class="fa-solid fa-key"></i> Property Care-takers</div>
+    
+    <div class="people-grid" style="grid-template-columns: repeat(3, 1fr);">
+        <div class="person-card tilt-card">
+            <div class="avatar-wrap"><i class="fa-solid fa-hand-holding-hand"></i></div>
+            <h3>Prasad P. Rane</h3>
+            <div class="person-role">Facility Caretaker</div>
+        </div>
+
+        <div class="person-card tilt-card">
+            <div class="avatar-wrap"><i class="fa-solid fa-hand-holding-hand"></i></div>
+            <h3>Arun S. Khude</h3>
+            <div class="person-role">Facility Caretaker</div>
+        </div>
+
+        <div class="person-card tilt-card">
+            <div class="avatar-wrap"><i class="fa-solid fa-hand-holding-hand"></i></div>
+            <h3>Jayawant M. Tandel</h3>
+            <div class="person-role">Facility Caretaker</div>
+        </div>
+    </div>
+
+    <!-- Info Slab linking back to automated guidelines -->
+    <div class="glass-info-slab">
+        <div class="slab-text">
+            <h3>Credential Verification Note</h3>
+            <p>Access privileges inside Ramanujan House are restricted strictly to verified TIFR Institute visitors via faculty sponsorship modules.</p>
+        </div>
+        <div class="slab-action">
+            <a href="usage_rules.html" class="btn-secondary">Usage Rules Portal <i class="fa-solid fa-arrow-right" style="margin-left: 8px;"></i></a>
+        </div>
+    </div>
+</section>
+
+<footer class="footer-ultimate">
+    <div class="footer-flex">
+        <div class="footer-brand-side">
+            <h2>
+                <img src="tifr.png" alt="TIFR Official Seal Logo" class="tifr-logo" style="width: 38px; height: 38px; filter: drop-shadow(0 2px 6px rgba(0,77,64,0.3));">
+                Ramanujan House
+            </h2>
+            <p>Tata Institute of Fundamental Research, Colaba Campus, Mumbai. Advancing global research synergy through premium residential hospitality.</p>
+        </div>
+        <div class="footer-info-side">
+            <div class="contact-pill"><i class="fa-solid fa-envelope-open-text"></i> feedback.gh@tifr.res.in</div>
+            <div class="contact-pill"><i class="fa-solid fa-business-time"></i> Check-in 12:00 PM / Check-out 10:00 AM</div>
+            <div class="contact-pill"><i class="fa-solid fa-fingerprint"></i> TIFR Datanet Verification Required</div>
+        </div>
+    </div>
+    <div class="footer-bottom">&copy; 2026 Tata Institute of Fundamental Research. All rights reserved.</div>
+</footer>
+
+<script>
+    /* ===== Navigation Scroll State ===== */
+    const navigationBar = document.querySelector('.nav-master');
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 40) navigationBar.classList.add('scrolled');
+        else navigationBar.classList.remove('scrolled');
+    });
+
+    /* ===== Mobile Nav Toggle ===== */
+    const mobileToggle = document.querySelector('.mobile-toggle');
+    const navLinks = document.querySelector('.nav-links');
+
+    mobileToggle.addEventListener('click', () => {
+        navLinks.classList.toggle('mobile-active');
+        const icon = mobileToggle.querySelector('i');
+        icon.className = navLinks.classList.contains('mobile-active') ? 'fa-solid fa-xmark' : 'fa-solid fa-bars';
+    });
+
+    /* ===== 3D Hover Tilt Systems (Desktop-only) ===== */
+    if (!window.matchMedia("(max-width: 1024px)").matches) {
+        document.querySelectorAll('.tilt-card').forEach(node => {
+            const strength = 5;
+            node.addEventListener('mousemove', (e) => {
+                const r = node.getBoundingClientRect();
+                const px = (e.clientX - r.left) / r.width - 0.5;
+                const py = (e.clientY - r.top) / r.height - 0.5;
+                const rotY = px * strength * 2;
+                const rotX = -py * strength * 2;
+                node.style.transform = `perspective(1200px) rotateY(${rotY}deg) rotateX(${rotX}deg) translateY(-3px)`;
+            });
+            node.addEventListener('mouseleave', () => {
+                node.style.transform = 'perspective(1200px) rotateY(0deg) rotateX(0deg) translateY(0px)';
+            });
+        });
+    }
+</script>
+</body>
+</html>
