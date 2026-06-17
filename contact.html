@@ -15,7 +15,6 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         :root {
-            /* Synchronized Ivory & Deep Teal Corporate Architecture Archetype */
             --bg-canvas: #F2F6F5;            
             --bg-surface: #FFFFFF;
             --bg-tinted: #E6EEEC;            
@@ -46,7 +45,6 @@
             position: relative;
         }
 
-        /* MATHEMATICAL BACKGROUND DOODLE TEXTURE */
         body::before {
             content: "";
             position: fixed;
@@ -78,11 +76,6 @@
             align-items: center;
             transition: all 0.5s var(--ease-butter);
         }
-        .nav-master.scrolled {
-            background: rgba(255, 255, 255, 0.94);
-            box-shadow: var(--shadow-3);
-            padding: 8px 12px 8px 18px;
-        }
 
         .logo-brand-container { display: flex; align-items: center; gap: 12px; }
         .tifr-logo { width: 36px; height: 36px; object-fit: contain; }
@@ -100,7 +93,7 @@
 
         .mobile-toggle { display: none; background: none; border: none; font-size: 1.2rem; cursor: pointer; padding: 8px; }
 
-        /* ============ MAP HERO SUBSTITUTE ============ */
+        /* ============ EMBED MAP HOUSING ============ */
         .hero-map-container {
             margin: 110px auto 0;
             max-width: 1320px;
@@ -154,9 +147,7 @@
         .comms-meta h4 { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--ink-muted); margin-bottom: 6px; }
         .comms-link-val { font-size: 1.15rem; font-weight: 700; color: var(--accent); text-decoration: none; transition: color 0.2s ease; }
         .comms-link-val:hover { color: var(--accent-bright); }
-        .comms-desc { font-size: 0.9rem; color: var(--ink-secondary); margin-top: 6px; line-height: 1.5; }
 
-        /* Graphic Map Housing Link Card */
         .graphic-housing { border-radius: 20px; overflow: hidden; border: 1px solid var(--hairline); margin-top: 24px; box-shadow: var(--shadow-1); background: var(--bg-tinted); height: 260px; display: block; transition: transform 0.3s ease; }
         .graphic-housing:hover { transform: scale(1.01); }
         .graphic-housing img { width: 100%; height: 100%; object-fit: cover; }
@@ -164,8 +155,13 @@
         /* ============ FOOTER ============ */
         .footer-ultimate { position: relative; margin: 40px auto 0; max-width: 1320px; width: calc(100% - 36px); background: var(--ink-primary); border-radius: 28px 28px 0 0; padding: 56px 48px 24px; color: #A3B8B5; }
         .footer-flex { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 36px; }
+        
         .footer-brand-side { flex: 1; min-width: 320px; }
-        .footer-brand-side h2 { color: #fff; font-family: 'Instrument Serif', serif; font-size: 2rem; font-weight: 400; display: flex; align-items: center; gap: 14px; margin-bottom: 12px; }
+        .footer-logo-header { display: flex; align-items: center; gap: 14px; margin-bottom: 12px; }
+        .footer-tifr-logo { width: 42px; height: 42px; object-fit: contain; }
+        .footer-brand-side h2 { color: #fff; font-family: 'Instrument Serif', serif; font-size: 2rem; font-weight: 400; }
+        .footer-brand-side p { font-size: 0.9rem; line-height: 1.5; color: #A3B8B5; }
+        
         .footer-info-side { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; flex: 1; min-width: 280px; }
         .contact-pill { background: rgba(255,255,255,0.03); border: 1px solid rgba(0,150,136,0.12); border-radius: 14px; padding: 14px 18px; display: flex; align-items: center; gap: 12px; font-size: 0.84rem; color: #C0D1CE; }
         .contact-pill i { color: #80CBC4; width: 32px; height: 32px; border-radius: 8px; background: rgba(0, 150, 136, 0.15); display: flex; align-items: center; justify-content: center; }
@@ -174,7 +170,7 @@
         @media (max-width: 1024px) {
             .main-layout-grid { grid-template-columns: 1fr; gap: 24px; padding: 24px 12px; }
             .editorial-card { padding: 28px; }
-            .nav-master { padding: 10px 12px 10px 18px; top: 12px; width: calc(100% - 24px); }
+            .nav-master { width: calc(100% - 24px); top: 12px; }
             .mobile-toggle { display: block; }
             .nav-links {
                 position: fixed; top: 70px; left: 12px; right: 12px; background: rgba(255,255,255,0.97);
@@ -205,9 +201,9 @@
     </div>
 </nav>
 
-<!-- LIVE GOOGLE MAPS INTRO INTEGRATION -->
+<!-- STABLE OPENSTREETMAP IFRAME INTEGRATION -->
 <section class="hero-map-container">
-    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m13!1m3!1d3774.2125585860717!2d72.8046187760155!3d18.899824657929424!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7d1e7b233f81f%3A0xa14ab262ea8808d4!2sTata%20Institute%20of%20Fundamental%20Research!5e0!3m2!1sen!2sin!4v1718630000000!5m2!1sen!2sin" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    <iframe src="https://maps.openlines.com.cn/embed.html?lat=18.89982&lon=72.80461&z=16" allowfullscreen="" loading="lazy"></iframe>
 </section>
 
 <main class="main-layout-grid">
@@ -302,7 +298,6 @@
                 </div>
             </div>
 
-            <!-- Restored mapping path to asset root directory framework -->
             <a href="https://maps.google.com/?q=Tata+Institute+of+Fundamental+Research" target="_blank" class="graphic-housing" title="Click to view on interactive maps">
                 <img src="assets/contact/sb-9.jpg" alt="Ramanujan Guesthouse Campus Layout Map Graphic Structure">
             </a>
@@ -314,7 +309,10 @@
 <footer class="footer-ultimate">
     <div class="footer-flex">
         <div class="footer-brand-side">
-            <h2>Ramanujan House</h2>
+            <div class="footer-logo-header">
+                <img src="tifr.png" alt="TIFR Footer Emblem" class="footer-tifr-logo">
+                <h2>Ramanujan House</h2>
+            </div>
             <p>The Ramanujan Guesthouse is located inside the TIFR Housing Colony adjacent to the TIFR Main Campus on Homi Bhabha Road, in Navy Nagar, Colaba, Mumbai.</p>
         </div>
         <div class="footer-info-side">
@@ -326,14 +324,12 @@
 </footer>
 
 <script>
-    /* Sticky Navigation Header Controller */
     const targetNavigation = document.querySelector('.nav-master');
     window.addEventListener('scroll', () => {
         if (window.scrollY > 40) targetNavigation.classList.add('scrolled');
         else targetNavigation.classList.remove('scrolled');
     });
 
-    /* Mobile Responsive Pill Navigation Dropdown Toggle Actions */
     const mobileTriggerBtn = document.querySelector('.mobile-toggle');
     const linksNavigationContainer = document.querySelector('.nav-links');
     
