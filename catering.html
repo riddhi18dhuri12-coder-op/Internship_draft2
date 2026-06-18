@@ -25,7 +25,7 @@
             --ink-secondary: #3A4D4A;        
             --ink-muted: #788C89;            
             
-            --accent: #004D40;               
+            --accent: #004D40;                
             --accent-soft: #00796B;          
             --accent-bright: #009688;        
             --accent-glow: #E0F2F1;          
@@ -141,7 +141,7 @@
             max-width: 1320px;
             width: calc(100% - 36px);
             min-height: 50vh;
-            background: linear-gradient(135deg, rgba(10,20,18,0.88) 0%, rgba(0,77,64,0.75) 100%), url(' assets/catering/GH-3b.jpg') center/cover;
+            background: linear-gradient(135deg, rgba(10,20,18,0.88) 0%, rgba(0,77,64,0.75) 100%), url('assets/catering/GH-3b.jpg') center/cover;
             border-radius: 32px;
             display: flex;
             align-items: center;
@@ -235,7 +235,7 @@
         .schedule-row h3 { font-family: 'Instrument Serif', serif; font-size: 1.6rem; font-weight: 400; color: var(--ink-primary); margin-bottom: 4px; }
         .schedule-row p { font-size: 0.9rem; color: var(--ink-secondary); line-height: 1.5; }
         
-        .price-badge-container { display: flex; gap: 8px; margin-top: 10px; }
+        .price-badge-container { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
         .price-tag {
             background: var(--accent-glow);
             color: var(--accent);
@@ -282,8 +282,8 @@
         .eatery-details .loc-text { font-size: 0.8rem; color: var(--ink-muted); margin-bottom: 20px; font-weight: 500; display: flex; align-items: center; gap: 6px; }
         
         .timing-pill-box { display: flex; flex-direction: column; gap: 8px; margin-top: auto; padding-top: 18px; border-top: 1px dashed var(--hairline-strong); }
-        .time-pill { display: flex; justify-content: space-between; align-items: center; font-size: 0.8rem; color: var(--ink-secondary); background: var(--bg-canvas); padding: 8px 12px; border-radius: 10px; }
-        .time-pill strong { color: var(--accent); font-weight: 600; }
+        .time-pill { display: flex; justify-content: space-between; align-items: center; font-size: 0.8rem; color: var(--ink-secondary); background: var(--bg-canvas); padding: 8px 12px; border-radius: 10px; gap: 10px; }
+        .time-pill strong { color: var(--accent); font-weight: 600; white-space: nowrap; }
 
         /* GRID TILES INFRASTRUCTURE ASSETS */
         .extra-gallery {
@@ -313,7 +313,7 @@
         .footer-brand-side h2 { color: #fff; font-family: 'Instrument Serif', serif; font-size: 2rem; font-weight: 400; display: flex; align-items: center; gap: 14px; margin-bottom: 12px; }
         .footer-info-side { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; flex: 1; min-width: 280px; }
         .contact-pill { background: rgba(255,255,255,0.03); border: 1px solid rgba(0,150,136,0.12); border-radius: 14px; padding: 14px 18px; display: flex; align-items: center; gap: 12px; font-size: 0.84rem; color: #C0D1CE; }
-        .contact-pill i { color: #80CBC4; width: 32px; height: 32px; border-radius: 8px; background: rgba(0, 150, 136, 0.15); display: flex; align-items: center; justify-content: center; }
+        .contact-pill i { color: #80CBC4; width: 32px; height: 32px; border-radius: 8px; background: rgba(0, 150, 136, 0.15); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
         .footer-bottom { text-align: center; margin-top: 40px; padding-top: 20px; border-top: 1px solid rgba(0,150,136,0.1); font-size: 0.76rem; color: rgba(255,255,255,0.3); }
 
         /* ============ RESPONSIVE MEDIA QUERIES ============ */
@@ -335,10 +335,49 @@
                 pointer-events: none; z-index: 1999; align-items: stretch;
             }
             .nav-links.mobile-active { transform: translateY(0); opacity: 1; pointer-events: auto; }
-            .hero-ram { padding: 36px; margin-top: 90px; }
+            
+            /* Reduced size of Hero Section for mid-to-small viewports */
+            .hero-ram { 
+                padding: 32px; 
+                margin-top: 90px; 
+                min-height: auto; 
+                border-radius: 24px;
+            }
+            .hero-ram p { margin-bottom: 24px; font-size: 0.98rem; }
+            .connect-strip { gap: 14px; }
+            .connect-node { padding: 10px 16px; border-radius: 14px; gap: 12px; }
         }
         @media (max-width: 600px) {
-            .eateries-deck, .extra-gallery { grid-template-columns: 1fr; }
+            .logo-brand { font-size: 0.85rem; }
+            .tifr-logo { width: 30px; height: 30px; }
+            
+            /* Maximum height reduction and space compression for small mobile viewports */
+            .hero-ram { 
+                padding: 24px 20px; 
+                margin-top: 84px; 
+                border-radius: 20px;
+                width: calc(100% - 20px);
+            }
+            .hero-ram h1 { font-size: 2rem; margin-bottom: 12px; }
+            .hero-ram p { font-size: 0.9rem; line-height: 1.5; margin-bottom: 20px; }
+            
+            .connect-strip { flex-direction: column; gap: 10px; width: 100%; }
+            .connect-node { width: 100%; }
+
+            .section-wrap { padding: 40px 14px; }
+            .section-head { font-size: 2rem; margin-bottom: 24px; }
+            .glass-info { padding: 24px 20px; border-radius: 20px; }
+            
+            .schedule-row { gap: 14px; padding-bottom: 20px; margin-bottom: 20px; }
+            .schedule-row i { font-size: 1.2rem; }
+            .schedule-row h3 { font-size: 1.4rem; }
+            
+            .eateries-deck, .extra-gallery { grid-template-columns: 1fr; gap: 20px; }
+            .eatery-details { padding: 20px; }
+            
+            .footer-ultimate { padding: 40px 20px 24px; border-radius: 24px 24px 0 0; width: calc(100% - 20px); }
+            .footer-brand-side { min-width: 100%; }
+            .footer-info-side { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -351,11 +390,10 @@
     </div>
     <button class="mobile-toggle" aria-label="Toggle Navigation Menu"><i class="fa-solid fa-bars"></i></button>
     <div class="nav-links">
-       
         <a href="index.html"><i class="fa-solid fa-monument"></i> About</a>
         <a href="people.html"><i class="fa-solid fa-users-viewfinder"></i> People</a>
-        <a href="catering.html"><i class="fa-solid fa-utensils"></i> Catering</a>
-        <a href="usage_rules.html" class="active"><i class="fa-solid fa-gavel"></i> Usage Rules</a>
+        <a href="catering.html" class="active"><i class="fa-solid fa-utensils"></i> Catering</a>
+        <a href="usage_rules.html"><i class="fa-solid fa-gavel"></i> Usage Rules</a>
         <a href="contact.html"><i class="fa-solid fa-address-book"></i> Contact</a>
     </div>
 </nav>
@@ -423,7 +461,7 @@
         </div>
         
         <div class="img-holder-3d">
-            <img src=" assets/catering/gh_016-dinning hall.jfif" class="zoomable-target" alt="Ramanujan House Main Dinner Dining Hall Asset">
+            <img src="assets/catering/gh_016-dinning hall.jfif" class="zoomable-target" alt="Ramanujan House Main Dinner Dining Hall Asset">
         </div>
     </div>
 </section>
@@ -436,7 +474,7 @@
     <div class="eateries-deck">
         <div class="eatery-card-3d">
             <div class="eatery-thumb-frame">
-                <img src=" assets/catering/west-can.jpg" class="zoomable-target" alt="West Canteen Facility Interior View">
+                <img src="assets/catering/west-can.jpg" class="zoomable-target" alt="West Canteen Facility Interior View">
             </div>
             <div class="eatery-details">
                 <h3>West Canteen</h3>
@@ -451,7 +489,7 @@
 
         <div class="eatery-card-3d">
             <div class="eatery-thumb-frame">
-                <img src=" assets/catering/east-can.jfif" class="zoomable-target" alt="East Canteen Dining Space Corridor View">
+                <img src="assets/catering/east-can.jfif" class="zoomable-target" alt="East Canteen Dining Space Corridor View">
             </div>
             <div class="eatery-details">
                 <h3>East Canteen</h3>
@@ -468,7 +506,7 @@
 
         <div class="eatery-card-3d">
             <div class="eatery-thumb-frame">
-                <img src=" assets/catering/jagdish.jfif" class="zoomable-target" alt="Jagdish Canteen Outside Courtyard Frame">
+                <img src="assets/catering/jagdish.jfif" class="zoomable-target" alt="Jagdish Canteen Outside Courtyard Frame">
             </div>
             <div class="eatery-details">
                 <h3>Jagdish Canteen</h3>
@@ -490,10 +528,10 @@
     <div class="section-badge"><i class="fa-solid fa-camera"></i> Infrastructure Nodes</div>
     <h2 class="section-head">Environment Walkthrough</h2>
     <div class="extra-gallery">
-        <div class="extra-img-node"><img src=" assets/catering/gh_038.jfif" class="zoomable-target" alt="Kitchen Prep Area Node 038"></div>
-        <div class="extra-img-node"><img src=" assets/catering/gh_051.jfif" class="zoomable-target" alt="Service Counters Line 051"></div>
-        <div class="extra-img-node"><img src=" assets/catering/gh_053.jfif" class="zoomable-target" alt="Lounge Area Node 053"></div>
-        <div class="extra-img-node"><img src=" assets/catering/gh_065.jfif" class="zoomable-target" alt="Table Seating Configurations 065"></div>
+        <div class="extra-img-node"><img src="assets/catering/gh_038.jfif" class="zoomable-target" alt="Kitchen Prep Area Node 038"></div>
+        <div class="extra-img-node"><img src="assets/catering/gh_051.jfif" class="zoomable-target" alt="Service Counters Line 051"></div>
+        <div class="extra-img-node"><img src="assets/catering/gh_053.jfif" class="zoomable-target" alt="Lounge Area Node 053"></div>
+        <div class="extra-img-node"><img src="assets/catering/gh_065.jfif" class="zoomable-target" alt="Table Seating Configurations 065"></div>
     </div>
 </section>
 
