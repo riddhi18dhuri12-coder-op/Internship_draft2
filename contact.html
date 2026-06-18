@@ -54,7 +54,7 @@
             background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100%25' height='100%25'%3E%3Ctext x='10%25' y='20%25' font-family='Courier, monospace' font-size='22' fill='%23004D40'%3Ex_n+1 = f(x_n)%3C/text%3E%3Ctext x='70%25' y='15%25' font-family='Courier, monospace' font-size='24' fill='%23004D40'%3E∮ E·dl = -dΦ_B/dt%3C/text%3E%3Ctext x='20%25' y='55%25' font-family='Courier, monospace' font-size='26' fill='%23004D40'%3Eψ(x,t) = Ae^{i(kx-ωt)}%3C/text%3E%3Ctext x='75%25' y='70%25' font-family='Courier, monospace' font-size='22' fill='%23004D40'%3E∇²V = 0%3C/text%3E%3Ccircle cx='45%25' cy='40%25' r='40' fill='none' stroke='%23004D40' stroke-width='1' stroke-dasharray='4,4'/%3E%3C/svg%3E");
         }
 
-        /* ============ NAVIGATION ============ */
+       
         .nav-master {
             position: fixed;
             top: 18px;
@@ -63,7 +63,7 @@
             width: calc(100% - 36px);
             max-width: 1320px;
             z-index: 2000;
-            background: rgba(255, 255, 255, 0.7);
+            background: rgba(255, 255, 255, 0.85);
             backdrop-filter: blur(28px) saturate(190%);
             -webkit-backdrop-filter: blur(28px) saturate(190%);
             border-radius: 22px;
@@ -73,7 +73,17 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            transition: all 0.5s var(--ease-butter);
+            transition: all 0.4s var(--ease-butter);
+        }
+
+    
+        .nav-master.scrolled {
+            top: 0;
+            width: 100%;
+            border-radius: 0 0 16px 16px;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 10px 24px;
+            border-bottom: 1px solid var(--hairline);
         }
 
         .logo-brand-container { display: flex; align-items: center; gap: 12px; }
@@ -90,22 +100,22 @@
         .nav-links a i { font-size: 0.72rem; color: var(--accent-soft); }
         .nav-links a:hover, .nav-links a.active { color: var(--accent); background: rgba(0, 150, 136, 0.06); }
 
-        .mobile-toggle { display: none; background: none; border: none; font-size: 1.2rem; cursor: pointer; padding: 8px; }
+        .mobile-toggle { display: none; background: none; border: none; font-size: 1.2rem; cursor: pointer; padding: 8px; color: var(--ink-primary); }
 
-        /* ============ EMBED MAP HOUSING ============ */
         .hero-map-container {
             margin: 110px auto 0;
             max-width: 1320px;
             width: calc(100% - 36px);
-            height: 380px;
+            height: 400px;
             border-radius: 32px;
             overflow: hidden;
             box-shadow: var(--shadow-2);
             border: 1px solid var(--hairline);
+            position: relative;
+            z-index: 1;
         }
         .hero-map-container iframe { width: 100%; height: 100%; border: 0; display: block; }
 
-        /* ============ CONTENT STRUCTURAL LAYOUT ============ */
         .main-layout-grid {
             max-width: 1320px;
             margin: 0 auto;
@@ -113,6 +123,8 @@
             display: grid;
             grid-template-columns: 1.1fr 0.9fr;
             gap: 32px;
+            position: relative;
+            z-index: 1;
         }
 
         .section-badge {
@@ -139,7 +151,7 @@
         }
         .map-interactive-trigger:hover { background: var(--accent-soft); transform: translateY(-2px); box-shadow: var(--shadow-2); }
 
-        /* ============ COMMS INTEGRATION ============ */
+     
         .comms-channel-list { display: flex; flex-direction: column; gap: 24px; }
         .comms-row { display: flex; align-items: flex-start; gap: 20px; padding-bottom: 24px; border-bottom: 1px dashed rgba(0, 77, 64, 0.1); }
         .comms-row:last-child { border-bottom: none; padding-bottom: 0; }
@@ -151,8 +163,8 @@
         .graphic-housing:hover { transform: scale(1.01); }
         .graphic-housing img { width: 100%; height: 100%; object-fit: cover; }
 
-        /* ============ FOOTER ============ */
-        .footer-ultimate { position: relative; margin: 40px auto 0; max-width: 1320px; width: calc(100% - 36px); background: var(--ink-primary); border-radius: 28px 28px 0 0; padding: 56px 48px 24px; color: #A3B8B5; }
+       
+        .footer-ultimate { position: relative; margin: 40px auto 0; max-width: 1320px; width: calc(100% - 36px); background: var(--ink-primary); border-radius: 28px 28px 0 0; padding: 56px 48px 24px; color: #A3B8B5; z-index: 1; }
         .footer-flex { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 36px; }
         
         .footer-brand-side { flex: 1; min-width: 320px; }
@@ -160,25 +172,48 @@
         .footer-tifr-logo { width: 42px; height: 42px; object-fit: contain; }
         .footer-brand-side h2 { color: #fff; font-family: 'Instrument Serif', serif; font-size: 2rem; font-weight: 400; }
         .footer-brand-side p { font-size: 0.9rem; line-height: 1.5; color: #A3B8B5; }
-        .footer-brand-side a { color: #80CBC4; text-decoration: underline; }
-        
         .footer-info-side { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; flex: 1; min-width: 280px; }
         .contact-pill { background: rgba(255,255,255,0.03); border: 1px solid rgba(0,150,136,0.12); border-radius: 14px; padding: 14px 18px; display: flex; align-items: center; gap: 12px; font-size: 0.84rem; color: #C0D1CE; }
         .contact-pill i { color: #80CBC4; width: 32px; height: 32px; border-radius: 8px; background: rgba(0, 150, 136, 0.15); display: flex; align-items: center; justify-content: center; }
         .footer-bottom { text-align: center; margin-top: 40px; padding-top: 20px; border-top: 1px solid rgba(0,150,136,0.1); font-size: 0.76rem; color: rgba(255,255,255,0.3); }
 
+      
         @media (max-width: 1024px) {
             .main-layout-grid { grid-template-columns: 1fr; gap: 24px; padding: 24px 12px; }
-            .editorial-card { padding: 28px; }
-            .nav-master { width: calc(100% - 24px); top: 12px; }
+            .editorial-card { padding: 24px; }
+            .hero-map-container { height: 300px; margin-top: 90px; border-radius: 20px; }
+            
             .mobile-toggle { display: block; }
+            
+            
             .nav-links {
-                position: fixed; top: 70px; left: 12px; right: 12px; background: rgba(255,255,255,0.97);
-                backdrop-filter: blur(28px); box-shadow: var(--shadow-3); flex-direction: column; padding: 14px; gap: 4px;
-                border-radius: 18px; border: 1px solid var(--hairline); transform: translateY(-150%); opacity: 0;
-                transition: transform 0.4s var(--ease-butter), opacity 0.3s ease; pointer-events: none; z-index: 1999; align-items: stretch;
+                position: fixed; 
+                top: 76px; 
+                left: 12px; 
+                right: 12px; 
+                background: rgba(255, 255, 255, 0.98);
+                box-shadow: var(--shadow-3); 
+                flex-direction: column; 
+                padding: 20px 14px; 
+                gap: 8px;
+                border-radius: 18px; 
+                border: 1px solid rgba(0, 77, 64, 0.1); 
+                transform: translateY(-20px); 
+                opacity: 0;
+                transition: transform 0.3s var(--ease-butter), opacity 0.3s ease; 
+                pointer-events: none; 
+                z-index: 1999; 
+                align-items: stretch;
             }
-            .nav-links.mobile-active { transform: translateY(0); opacity: 1; pointer-events: auto; }
+            .nav-links.mobile-active { 
+                transform: translateY(0); 
+                opacity: 1; 
+                pointer-events: auto; 
+            }
+            .nav-links a {
+                padding: 12px 16px;
+                background: rgba(0, 0, 0, 0.02);
+            }
             .footer-flex { flex-direction: column; align-items: flex-start; }
         }
     </style>
@@ -187,7 +222,7 @@
 
 <nav class="nav-master">
     <div class="logo-brand-container">
-        <img src="tifr.jpg" alt="TIFR Official Seal Logo" class="tifr-logo">
+        <img src="tifr.png" alt="TIFR Official Seal Logo" class="tifr-logo" onerror="this.src='https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?auto=format&fit=crop&w=100&q=80'">
         <div class="logo-brand">TIFR GuestHouse <span class="sep"></span> </div>
     </div>
     <button class="mobile-toggle" aria-label="Toggle Navigation Menu"><i class="fa-solid fa-bars"></i></button>
@@ -203,7 +238,7 @@
 
 <section class="hero-map-container">
     <iframe 
-        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m13!1d3774.2201844299863!2d72.80287967597155!3d18.899479357905893!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7d1e6704f08e7%3A0x67399b1062955f05!2sTata%20Institute%20of%20Fundamental%20Research!5e0!3m2!1sen!2sin!4v1710000000000!5m2!1sen!2sin" 
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m13!1m3!1d3774.2144723049193!2d72.80287237597148!3d18.89973215792942!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7d1e847ffffff%3A0x2db49080db1e967!2sTata%20Institute%20of%20Fundamental%20Research!5e0!3m2!1sen!2sin!4v1710000000000!5m2!1sen!2sin" 
         allowfullscreen="" 
         loading="lazy" 
         referrerpolicy="no-referrer-when-downgrade">
@@ -211,7 +246,6 @@
 </section>
 
 <main class="main-layout-grid">
-    
     <div class="panel-left">
         <div class="editorial-card">
             <div class="section-badge"><i class="fa-solid fa-map-location-dot"></i> Navigation Profile</div>
@@ -247,17 +281,16 @@
             </div>
 
             <p style="font-size: 0.92rem; color: var(--ink-secondary); margin-top: 20px; line-height: 1.6;">
-                Then proceed towards the same direction until you reach the end of the road where TIFR campus is located. The map layout and external resource links will guide you. For more details please <a href="https://maps.app.goo.gl/3fR5kK3g6PjWh8Wp8" target="_blank" style="color: var(--accent); font-weight: 600; text-decoration: underline;">goto this link</a>.
+                Then proceed towards the same direction until you reach the end of the road where TIFR campus is located. The map layout and external resource links will guide you.
             </p>
 
-            <a href="https://maps.app.goo.gl/3fR5kK3g6PjWh8Wp8" target="_blank" class="map-interactive-trigger">
+            <a href="https://maps.google.com/?q=Tata+Institute+of+Fundamental+Research" target="_blank" class="map-interactive-trigger">
                 <i class="fa-solid fa-location-arrow"></i> Open Google Maps Location
             </a>
         </div>
     </div>
 
     <div class="panel-right">
-        
         <div class="editorial-card">
             <div class="section-badge"><i class="fa-solid fa-headset"></i> Contact Registry</div>
             <h2 class="section-head">Contact Details</h2>
@@ -297,12 +330,7 @@
                     </div>
                 </div>
             </div>
-
-            <a href="https://maps.app.goo.gl/3fR5kK3g6PjWh8Wp8" target="_blank" class="graphic-housing" title="Click to view on interactive maps">
-                <img src="assets/contact/sb-9.jpg" alt="Ramanujan Guesthouse Campus Layout Map Graphic Structure">
-            </a>
         </div>
-
     </div>
 </main>
 
@@ -310,10 +338,10 @@
     <div class="footer-flex">
         <div class="footer-brand-side">
             <div class="footer-logo-header">
-                <img src="assets/tifr.png" alt="TIFR Footer Emblem" class="footer-tifr-logo">
+                <img src="assets/tifr.png" alt="TIFR Footer Emblem" class="footer-tifr-logo" onerror="this.src='https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?auto=format&fit=crop&w=100&q=80'">
                 <h2>TIFR GuestHouse</h2>
             </div>
-            <p>The Ramanujan Guest House</a> is located inside the TIFR Housing Colony adjacent to the TIFR Main Campus on Homi Bhabha Road, in Navy Nagar, Colaba, Mumbai.</p>
+            <p>The Ramanujan Guest House is located inside the TIFR Housing Colony adjacent to the TIFR Main Campus on Homi Bhabha Road, in Navy Nagar, Colaba, Mumbai.</p>
         </div>
         <div class="footer-info-side">
             <div class="contact-pill"><i class="fa-solid fa-square-phone"></i> +91-22-2278 3050</div>
@@ -335,6 +363,7 @@
     
     mobileTriggerBtn.addEventListener('click', () => {
         linksNavigationContainer.classList.toggle('mobile-active');
+      
         mobileTriggerBtn.querySelector('i').className = linksNavigationContainer.classList.contains('mobile-active') ? 'fa-solid fa-xmark' : 'fa-solid fa-bars';
     });
 </script>
